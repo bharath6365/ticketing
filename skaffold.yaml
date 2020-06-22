@@ -16,3 +16,12 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: bharath6365/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+        # No Src Folder
+          - src: '**/*.js'
+            dest: .
