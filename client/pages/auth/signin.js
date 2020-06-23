@@ -11,14 +11,14 @@ const model = Schema.Model({
   password: StringType().isRequired('Password is required.')
 });
 
-export default function signup() {
+export default function signin() {
   const formElement = useRef(null);
 
-const {doRequest, errors} = useRequest({
-  url: '/api/users/signup',
-  method: 'post',
-  onSuccess: () => Router.push('/')
-})
+  const {doRequest, errors} = useRequest({
+    url: '/api/users/signin',
+    method: 'post',
+    onSuccess: () => Router.push('/')
+  })
 
 
   const handleSubmit = async (e) => {

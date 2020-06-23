@@ -8,7 +8,7 @@ import TokenManager from '../services/token-manager';
 
 const router = express.Router();
 
-router.get(
+router.post(
   '/api/users/signin',
   [
     body('email').isEmail().withMessage('Email must be valid'),
