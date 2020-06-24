@@ -10,8 +10,7 @@ import { signinRouter} from './routes/signin';
 import { signoutRouter} from './routes/signout';
 import {signupRouter} from './routes/signup';
 
-import {errorHandler} from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-errors';
+import {errorHandler, NotFoundError} from '@bhticketsell/common';
 
 const app = express();
 

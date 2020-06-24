@@ -1,10 +1,9 @@
-import { BadRequestError } from './../errors/bad-request-error';
 import express, { Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
-import validateRequest from '../middlewares/validate-request';
+import { body } from 'express-validator';
+import {validateRequest, TokenManager, BadRequestError} from '@bhticketsell/common';
 import { User } from '../models/User';
 import Password from '../services/password';
-import TokenManager from '../services/token-manager';
+import {} from '@bhticketsell/common';
 
 const router = express.Router();
 

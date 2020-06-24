@@ -1,7 +1,6 @@
 import express from 'express';
 import { User } from '../models/User';
-import TokenManager from '../services/token-manager';
-import currentUser from '../middlewares/current-user';
+import {currentUser} from '@bhticketsell/common';
 
 
 const router = express.Router();
