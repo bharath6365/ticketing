@@ -5,7 +5,11 @@ import {json} from 'body-parser';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 
-import {errorHandler, NotFoundError} from '@bhticketsell/common';
+import {errorHandler, NotFoundError, currentUser} from '@bhticketsell/common';
+import { createTicketRouter } from './routes/create-ticket';
+import { showTicketRouter } from './routes/show-ticket';
+import { showAllTicketsRouter } from './routes/show-all-tickets';
+import { updateTicketRouter } from './routes/update-ticket';
 
 const app = express();
 
@@ -22,6 +26,14 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test'
 }))
 
+// Middleware for Auth.
+app.use(currentUser);
+
+// Routes.
+app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(showAllTicketsRouter);
+app.use(updateTicketRouter);
 
 //Not found error
 app.all('*', () => {
