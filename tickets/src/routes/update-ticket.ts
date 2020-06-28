@@ -1,6 +1,8 @@
 
 import express, {Request, Response} from 'express';
 import {body} from 'express-validator';
+import {natsWrapper} from '../nats-wrapper';
+import { TicketUpdatedPublisher } from '../events/publisher/ticket-updated-publisher';
 
 // import { User } from '../models/User';
 import { BadRequestError, NotAuthorizedError, validateRequest, requireAuth, NotFoundError } from '@bhticketsell/common'; 
@@ -30,9 +32,25 @@ router.put('/api/tickets/:id', requireAuth, [
 
   // Check if user is the owner of the ticket.
   // ! tells typescript not to worry.
-  if (req.currentUser!.id !== ticket.id) {
+  if (req.currentUser!.id !== ticket.userId) {
     throw new NotAuthorizedError();
   }
+  
+  // Update the ticket.
+  ticket.set({
+    title,
+    price
+  })
+
+  await ticket.save();
+  
+  // Publishing event to NATS.
+  new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId
+  })
 
   res.send(ticket);
 

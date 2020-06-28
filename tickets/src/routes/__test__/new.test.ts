@@ -1,7 +1,10 @@
 import request from 'supertest';
 import { it, expect } from '@jest/globals';
 
+import {natsWrapper} from '../../nats-wrapper';
+
 import { app } from '../../app';
+
 
 it('Has a route handler listening to /api/tickets POST Request', async () => {
   const response = await request(app).post('/api/tickets').send({});
@@ -58,8 +61,23 @@ it('Creates a ticket with valid inputs', async () => {
   .set('Cookie', global.signin())
   .send({
     title: 'Abc',
-    price: '10'
+    price: 10
   });
 
   expect(response.status).toEqual(201);
+});
+
+it('Publishes an event for a successful ticket create', async () => {
+  // Make sure database record was created.
+  const response = await request(app)
+  .post('/api/tickets')
+  .set('Cookie', global.signin())
+  .send({
+    title: 'Abc',
+    price: 10
+  });
+
+  expect(response.status).toEqual(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

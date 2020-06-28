@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { it, expect } from '@jest/globals';
 import mongoose from 'mongoose';
+import { natsWrapper } from '../../nats-wrapper';
 
 import { app } from '../../app';
 
@@ -35,38 +36,45 @@ it('Should return 401 if user is not authenticated', async () => {
   expect(updateResponse.status).toEqual(401);
 });
 
-it('Should return 401 if user does not own the ticket', async () => {
-  // Attach the cookie.
+it('Should return 400 if title/price is invalid', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+  .post(`/api/tickets`)
+  .set('Cookie', cookie)
+  .send({
+    title: 'Xyz',
+    price: 20
+  });
 
-  const response = await request(app).post('/api/tickets').set('Cookie', global.signin()).send({});
-
-  expect(response.status).not.toEqual(401);
-});
-
-it('Returns error if invalid title is provided', async () => {
-  const response = await request(app).post('/api/tickets').set('Cookie', global.signin()).send({
+  const updateResponse = await request(app).put(`/api/tickets/${response.body.id}`)
+  .set('Cookie', cookie)
+  .send({
     title: '',
-    price: 10
-  });
+    price: 200
+  })
 
-  expect(response.status).toEqual(400);
+  expect(updateResponse.status).toEqual(400);
 });
 
-it('Returns error if invalid price is provided', async () => {
-  const response = await request(app).post('/api/tickets').set('Cookie', global.signin()).send({
-    title: 'Abc',
-    price: -10
+it('Updates the ticket gives a 200 response', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+  .post(`/api/tickets`)
+  .set('Cookie', cookie)
+  .send({
+    title: 'Xyz',
+    price: 20
   });
 
-  expect(response.status).toEqual(400);
+  const updateResponse = await request(app).put(`/api/tickets/${response.body.id}`)
+  .set('Cookie', cookie)
+  .send({
+    title: 'Xyz',
+    price: 200
+  })
+
+  expect(updateResponse.status).toEqual(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
 
-it('Updates a ticket with valid inputs', async () => {
-  // Make sure database record was created.
-  const response = await request(app).post('/api/tickets').set('Cookie', global.signin()).send({
-    title: 'Abc',
-    price: '10'
-  });
-
-  expect(response.status).toEqual(201);
-});
