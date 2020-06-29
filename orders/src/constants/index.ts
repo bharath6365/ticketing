@@ -1,0 +1,1 @@
+export const ORDER_EXPIRATION = 15 * 60;
