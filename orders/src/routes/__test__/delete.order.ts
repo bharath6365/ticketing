@@ -1,4 +1,5 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 import { app } from '../../app';
 import { Ticket } from '../../models/tickets';
 import { it, expect } from '@jest/globals';
@@ -8,6 +9,7 @@ it('fetches the order', async () => {
   const ticket = Ticket.build({
     title: 'concert',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString()
   });
   await ticket.save();
 

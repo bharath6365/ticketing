@@ -1,5 +1,6 @@
 import mongoose, { Mongoose } from 'mongoose';
 import {OrderStatus} from '@bhticketsell/common';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import {TicketDoc} from './tickets';
 
 // Interface attributes for adding a new user. Remember this is not the schema of the entire doc.
@@ -21,6 +22,7 @@ interface OrderDoc extends mongoose.Document {
   status: OrderStatus
   expiresAt: Date
   ticket: TicketDoc
+  version: number
 }
 
 const orderSchema = new mongoose.Schema({
@@ -52,6 +54,9 @@ const orderSchema = new mongoose.Schema({
     }
   }
 )
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 // Type checking. Only way to create a new ticket
 orderSchema.statics.build = (attrs: OrderAttrs) => {

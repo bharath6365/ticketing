@@ -1,10 +1,12 @@
-import mongoose, { Mongoose } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import mongoose, { Mongoose, version } from 'mongoose';
 import {Order} from './orders';
 
 import {OrderStatus} from '@bhticketsell/common';
 
 // Interface attributes for adding a new user. Remember this is not the schema of the entire doc.
 interface TicketAttrs {
+  id: string
   title: string;
   price: number;
 }
@@ -12,6 +14,7 @@ interface TicketAttrs {
 // Interface for describing the properties that the user model has.
 interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: {id: string, version: number}): Promise<TicketDoc | null>
 }
 
 // Interface that describes the properties that have a user document has. Will be used in user models.
@@ -19,6 +22,7 @@ export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   isReserved(): Promise<boolean>;
+  version: number;
 }
 
 const ticketSchema = new mongoose.Schema({
@@ -42,9 +46,17 @@ const ticketSchema = new mongoose.Schema({
   }
 )
 
+// Versioning
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
+
 // Type checking. Only way to create a new ticket
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
+}
+
+ticketSchema.statics.findByEvent = (event: {id: string,version: number }) => {
+  return Ticket.findOne({_id: event.id, version: event.version - 1})
 }
 
 /* Make sure that the ticket is not already not reserved by someone else.
