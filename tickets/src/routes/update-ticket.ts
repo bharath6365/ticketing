@@ -5,7 +5,7 @@ import {natsWrapper} from '../nats-wrapper';
 import { TicketUpdatedPublisher } from '../events/publisher/ticket-updated-publisher';
 
 // import { User } from '../models/User';
-import { BadRequestError, NotAuthorizedError, validateRequest, requireAuth, NotFoundError } from '@bhticketsell/common'; 
+import {  NotAuthorizedError, validateRequest, requireAuth, NotFoundError, BadRequestError } from '@bhticketsell/common'; 
 import { Ticket } from '../models/tickets';
 
 
@@ -28,6 +28,11 @@ router.put('/api/tickets/:id', requireAuth, [
   
   if (!ticket) {
     throw new NotFoundError();
+  }
+  
+  // Reserved ticket.
+  if (ticket.orderId) {
+    throw new BadRequestError('Cannot edit a reserved ticket.');
   }
 
   // Check if user is the owner of the ticket.

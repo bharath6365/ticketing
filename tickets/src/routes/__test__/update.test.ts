@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { natsWrapper } from '../../nats-wrapper';
 
 import { app } from '../../app';
+import { Ticket } from '../../models/tickets';
 
 it('Should return 404 if the provided id does not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -76,5 +77,29 @@ it('Updates the ticket gives a 200 response', async () => {
   expect(updateResponse.status).toEqual(200);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+it('Doesnt allow to edit a reserved ticket', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+  .post(`/api/tickets`)
+  .set('Cookie', cookie)
+  .send({
+    title: 'Xyz',
+    price: 20
+  });
+
+  const ticket = await Ticket.findById(response.body.id);
+  // Makes the ticket as reserved.
+  ticket!.set({orderId: new mongoose.Types.ObjectId().toHexString()})
+  await ticket!.save();
+
+await request(app).put(`/api/tickets/${response.body.id}`)
+  .set('Cookie', cookie)
+  .send({
+    title: 'Xyz',
+    price: 200
+  }).expect(400);
+
 });
 
