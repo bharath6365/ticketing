@@ -52,7 +52,11 @@ ticketSchema.plugin(updateIfCurrentPlugin);
 
 // Type checking. Only way to create a new ticket
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  return new Ticket({
+    _id: attrs.id,
+    title: attrs.title,
+    price: attrs.price,
+  });
 }
 
 ticketSchema.statics.findByEvent = (event: {id: string,version: number }) => {

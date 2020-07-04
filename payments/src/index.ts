@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import {app} from './app';
 import {natsWrapper} from './nats-wrapper';
-import { TicketCreatedListener } from './events/listener/ticket-created-listener';
-import { TicketUpdatedListener } from './events/listener/ticket-updated-listener';
-import { ExpirationCompleteListener } from './events/listener/expiration-complete-listener';
+import { OrderCreatedListener } from './events/listener/order-created-listener';
+import { OrderCancelledListener } from './events/listener/order-cancelled-listener';
+
 
 const startApp = async () => {
   // JWT Secret
@@ -30,15 +30,13 @@ const startApp = async () => {
       console.log('Nats Client Closing');
       process.exit(0);
     })
-
-    // Start listening for your events...
-    new TicketCreatedListener(natsWrapper.client).listen();
-    new TicketUpdatedListener(natsWrapper.client).listen();
-    new ExpirationCompleteListener(natsWrapper.client).listen();
-    
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
     
+    // Listening for Events.
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();    
+
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
