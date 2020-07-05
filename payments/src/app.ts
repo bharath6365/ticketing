@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 
 import {errorHandler, NotFoundError, currentUser} from '@bhticketsell/common';
+import { createChargeRouter } from './routes/new-charge';
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(cookieSession({
 app.use(currentUser);
 
 // Routes.
-
+app.use(createChargeRouter);
 
 //Not found error
 app.all('*', () => {
