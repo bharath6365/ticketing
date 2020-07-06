@@ -16,6 +16,7 @@
     "less": "^3.11.3",
     "next": "^9.4.4",
     "react": "^16.13.1",
+    "react-countdown-circle-timer": "^2.2.2",
     "react-dom": "^16.13.1",
     "rsuite": "^4.7.5"
   }

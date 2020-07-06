@@ -1,14 +1,16 @@
 import 'rsuite/lib/styles/themes/dark/index.less';
+import '../style.less';
+import {Container, Footer} from 'rsuite';
 import Header from '../components/Header';
 import buildClient from '../api/build-client';
 
 // Next Wraps all our component(Pages) inside the App. We are defining our custom App Component.
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
-    <div>
+    <Container>
       <Header currentUser={currentUser}/>
-      <Component {...pageProps} currentUser={currentUser}/>
-    </div>
+      <Component {...pageProps} currentUser={currentUser}/>      
+    </Container>
   );
 };
 
@@ -21,7 +23,8 @@ AppComponent.getInitialProps = async (appContext) => {
   // Get the page props and call the getInitialProps of all the child components.
   let pageProps;
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    // Pass client and current user as get initial props as well.
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx, client, data.currentUser);
   }  
 
   return {

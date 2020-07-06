@@ -1,39 +1,43 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link';
-import { Nav, Icon } from 'rsuite';
+import { Header as RSuiteHeader, Nav, Icon } from 'rsuite';
 
 export default function Header({ currentUser }) {
   return (
-    <Nav appearance="tabs">
-      <Nav.Item icon={<Icon icon="home" />}>Home</Nav.Item>
+    <RSuiteHeader style={{marginBottom: '30px'}}>
+      <Nav appearance="tabs">
+        <Link href="/">
+          <Nav.Item icon={<Icon icon="home" />}>Home</Nav.Item>
+        </Link>
 
-      {!currentUser && (
-        <Fragment>
-          <Link href="/auth/signin">
-            <Nav.Item>Signin</Nav.Item>
-          </Link>
+        {!currentUser && (
+          <Fragment>
+            <Link href="/auth/signin">
+              <Nav.Item>Signin</Nav.Item>
+            </Link>
 
-          <Link href="/auth/signup">
-            <Nav.Item>Signup</Nav.Item>
-          </Link>
-        </Fragment>
-      )}
+            <Link href="/auth/signup">
+              <Nav.Item>Signup</Nav.Item>
+            </Link>
+          </Fragment>
+        )}
 
-      {currentUser && (
-        <Fragment>
-          <Link href="/auth/signin">
-            <Nav.Item>Tickets</Nav.Item>
-          </Link>
+        {currentUser && (
+          <Fragment>
+            <Link href="/tickets/new">
+              <Nav.Item>Tickets</Nav.Item>
+            </Link>
 
-          <Link href="/auth/signup">
-            <Nav.Item>Orders</Nav.Item>
-          </Link>
+            <Link href="/auth/signup">
+              <Nav.Item>Orders</Nav.Item>
+            </Link>
 
-          <Link href="/auth/signout">
-            <Nav.Item>Sign out</Nav.Item>
-          </Link>
-        </Fragment>
-      )}
-    </Nav>
+            <Link href="/auth/signout">
+              <Nav.Item>Sign out</Nav.Item>
+            </Link>
+          </Fragment>
+        )}
+      </Nav>
+    </RSuiteHeader>
   );
 }

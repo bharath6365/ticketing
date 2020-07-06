@@ -9,7 +9,7 @@ router.get('/api/orders/:orderId', requireAuth, async (req: Request, res: Respon
   // Get the order.
   const order = await Order.findOne({
     userId: req.currentUser!.id,
-    orderId: req.params.orderId
+    _id: req.params.orderId
   }).populate('ticket')
 
   if (!order) throw new NotFoundError();
