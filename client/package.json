@@ -18,6 +18,7 @@
     "react": "^16.13.1",
     "react-countdown-circle-timer": "^2.2.2",
     "react-dom": "^16.13.1",
+    "react-stripe-checkout": "^2.6.3",
     "rsuite": "^4.7.5"
   }
 }

@@ -11,8 +11,10 @@ const router = express.Router();
 
 router.get('/api/tickets', async (req: Request, res: Response) => {
   
-  // We don't have any pagination yet.
-  const tickets = await Ticket.find({});
+  // orderId: undefined means that these are tickets that are not sold yet.
+  const tickets = await Ticket.find({
+    orderId: undefined
+  });
 
   res.send(tickets);
 

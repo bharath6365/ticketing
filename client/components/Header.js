@@ -25,10 +25,10 @@ export default function Header({ currentUser }) {
         {currentUser && (
           <Fragment>
             <Link href="/tickets/new">
-              <Nav.Item>Tickets</Nav.Item>
+              <Nav.Item>Sell Tickets</Nav.Item>
             </Link>
 
-            <Link href="/auth/signup">
+            <Link href="/orders">
               <Nav.Item>Orders</Nav.Item>
             </Link>
 
