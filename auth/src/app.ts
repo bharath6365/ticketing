@@ -24,7 +24,7 @@ app.use(cookieSession({
   // Don't encrypt.
   signed: false,
   // Only HTTPS
-  secure: process.env.NODE_ENV !== 'test'
+  secure: false
 }))
 
 app.use(currentUserRouter);
