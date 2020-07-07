@@ -7,7 +7,8 @@ export default ({req}) => {
       })
     } else {
       return axios.create({
-        baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        // Todo: Move this to a env variable.
+        baseURL: 'http://www.ticket-sell.xyz/',
         headers: req.headers
       })
     }
