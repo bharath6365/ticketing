@@ -3,6 +3,7 @@ import '../style.less';
 import {Container, Footer} from 'rsuite';
 import Header from '../components/Header';
 import buildClient from '../api/build-client';
+console.log('Base Client App listening for events');
 
 // Next Wraps all our component(Pages) inside the App. We are defining our custom App Component.
 const AppComponent = ({ Component, pageProps, currentUser }) => {

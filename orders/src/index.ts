@@ -7,6 +7,7 @@ import { ExpirationCompleteListener } from './events/listener/expiration-complet
 import { PaymentCreatedListener } from './events/listener/payment-created-listener';
 
 const startApp = async () => {
+  console.log('Starting...');
   // JWT Secret
   if (!process.env.JWT_KEY) {
     throw new Error('JWT Secret does not exist');

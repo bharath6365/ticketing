@@ -6,6 +6,7 @@ import { OrderCancelledListener } from './events/listener/order-cancelled-listen
 
 
 const startApp = async () => {
+  console.log('Starting...');
   // JWT Secret
   if (!process.env.JWT_KEY) {
     throw new Error('JWT Secret does not exist');
