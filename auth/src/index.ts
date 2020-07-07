@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import {app} from './app';
 
 const startApp = async () => {
-  console.log('Auth Service Started');
+  console.log('Starting');
   // JWT Secret
   if (!process.env.JWT_KEY) {
     throw new Error('JWT Secret does not exist');
