@@ -5,6 +5,9 @@ import request from 'supertest';
 
 
 import {app} from '../app';
+jest.setTimeout(30000);
+
+
 
 declare global {
   namespace NodeJS {
