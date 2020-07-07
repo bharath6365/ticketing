@@ -3,6 +3,7 @@ import {natsWrapper} from './nats-wrapper';
 import { OrderCreatedListener } from './events/listener/order-created-listener';
 
 const startApp = async () => {
+  console.log('Starting...');
   if (!process.env.NATS_URL) {
     throw new Error('Nats URL must be defined');
   }
