@@ -9,7 +9,6 @@ const styleCenter = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '60px'
 };
 
 const slimText = {

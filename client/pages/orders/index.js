@@ -6,9 +6,14 @@ const orderIndex = ({orders}) => {
     <ul>
     {
       orders.map(order => {
+        let orderDate = new Date(order.createdAt);
+        // Backward compatiblity.
+        if (orderDate) {
+          orderDate =orderDate.toDateString();
+        }
         return (
           <li key={order.id}>
-            {order.ticket.title} - {order.status}
+            {order.ticket.title} - {order.status} - {orderDate}
           </li>
         )
         

@@ -36,7 +36,7 @@ const orderShow = ({ order, currentUser }) => {
   } else {
     return (
     <div>
-      <h2>Purchasing {order.ticket.title}</h2>
+      <h2>Purchasing Ticket - {order.ticket.title}</h2>
 
       {!paymentSuccessMessage && (<div className="timer-wrapper">
         <CountdownCircleTimer

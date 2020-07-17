@@ -45,6 +45,7 @@ const orderSchema = new mongoose.Schema({
     ref: 'Ticket'
   } 
   },{
+    timestamps: { createdAt: true, updatedAt: false },
     toJSON: {
       transform(doc, ret) {
         // For consistent payload. We replace _id with id.
