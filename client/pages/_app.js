@@ -1,16 +1,28 @@
-import 'rsuite/lib/styles/themes/dark/index.less';
-import '../style.less';
 import {Container, Footer} from 'rsuite';
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css';
+import Router from 'next/router';
+import 'rsuite/lib/styles/themes/dark/index.less';
+import '../style.css';
+
+ //styles of nprogress
+
 import Header from '../components/Header';
 import buildClient from '../api/build-client';
-console.log('Base Client App listening for events');
+
+// Navigation Progress...
+Router.events.on('routeChangeStart', () => NProgress.start()); 
+Router.events.on('routeChangeComplete', () => NProgress.done()); 
+Router.events.on('routeChangeError', () => NProgress.done());
 
 // Next Wraps all our component(Pages) inside the App. We are defining our custom App Component.
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <Container>
       <Header currentUser={currentUser}/>
-      <Component {...pageProps} currentUser={currentUser}/>      
+      <div className="component-wrapper">
+        <Component {...pageProps} currentUser={currentUser}/> 
+      </div>         
     </Container>
   );
 };
