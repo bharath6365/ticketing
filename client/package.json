@@ -11,10 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "axios": "^0.19.2",
     "less": "^3.11.3",
     "next": "^9.4.4",
+    "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-countdown-circle-timer": "^2.2.2",
     "react-dom": "^16.13.1",

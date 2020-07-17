@@ -1,39 +1,58 @@
 import React, { Fragment } from 'react';
+import { useRouter } from 'next/router';
+
 import Link from 'next/link';
 import { Header as RSuiteHeader, Nav, Icon } from 'rsuite';
 
+const ROUTES = {
+  home: '/',
+  signin: '/auth/signin',
+  signup: '/auth/signup',
+  signout: '/auth/signout',
+  sell: '/tickets/new',
+  orders: '/orders'
+};
+
 export default function Header({ currentUser }) {
+  const router = useRouter();
+  // Utility function that decides which route is active.
+  const isActive = (href) => {
+    return router.pathname === href;
+  };
+
   return (
-    <RSuiteHeader style={{marginBottom: '30px'}}>
-      <Nav appearance="tabs">
-        <Link href="/">
-          <Nav.Item icon={<Icon icon="home" />}>Home</Nav.Item>
+    <RSuiteHeader style={{ marginBottom: '30px' }}>
+      <Nav appearance="tabs" justified>
+        <Link href={ROUTES.home}>
+          <Nav.Item active={isActive(ROUTES.home)} icon={<Icon icon="home" />}>
+            Home
+          </Nav.Item>
         </Link>
 
         {!currentUser && (
           <Fragment>
-            <Link href="/auth/signin">
-              <Nav.Item>Signin</Nav.Item>
+            <Link href={ROUTES.signin}>
+              <Nav.Item active={isActive(ROUTES.signin)} icon={<Icon icon="sign-in" />}>Signin</Nav.Item>
             </Link>
 
-            <Link href="/auth/signup">
-              <Nav.Item>Signup</Nav.Item>
+            <Link href={ROUTES.signup}>
+              <Nav.Item active={isActive(ROUTES.signup)} icon={<Icon icon="user-plus" />}>Signup</Nav.Item>
             </Link>
           </Fragment>
         )}
 
         {currentUser && (
           <Fragment>
-            <Link href="/tickets/new">
-              <Nav.Item>Sell Tickets</Nav.Item>
+            <Link href={ROUTES.sell}>
+              <Nav.Item active={isActive(ROUTES.sell)} icon={<Icon icon="plus-square" />}>Sell</Nav.Item>
             </Link>
 
-            <Link href="/orders">
-              <Nav.Item>Orders</Nav.Item>
+            <Link href={ROUTES.orders}>
+              <Nav.Item active={isActive(ROUTES.orders)} icon={<Icon icon="shopping-cart" />}>Orders</Nav.Item>
             </Link>
 
-            <Link href="/auth/signout">
-              <Nav.Item>Sign out</Nav.Item>
+            <Link href={ROUTES.signout}>
+              <Nav.Item active={isActive(ROUTES.signout)} icon={<Icon icon="sign-out" />}>Sign out</Nav.Item>
             </Link>
           </Fragment>
         )}
