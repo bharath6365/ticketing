@@ -58,3 +58,5 @@ build:
         # No Src Folder
           - src: '**/*.js'
             dest: .
+          - src: '**/*.css'
+            dest: .
