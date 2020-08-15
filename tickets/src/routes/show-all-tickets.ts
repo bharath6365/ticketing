@@ -1,9 +1,7 @@
 
 import express, {Request, Response} from 'express';
-import {body} from 'express-validator';
 
-// import { User } from '../models/User';
-import { BadRequestError, TokenManager, validateRequest, requireAuth, NotFoundError } from '@bhticketsell/common'; 
+
 import { Ticket } from '../models/tickets';
 
 

@@ -1,129 +1,63 @@
 import React from 'react';
-import Link from 'next/link';
 import Router from 'next/router';
-import { Content, Panel } from 'rsuite';
-import useRequest from '../hooks/use-request';
-import {FlexboxGrid, List, Icon} from 'rsuite';
+import { FlexboxGrid } from 'rsuite';
+import AllTickets from '../components/AllTickets';
+import MyTickets from '../components/MyTickets';
 
-const styleCenter = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const slimText = {
-  fontSize: '0.666em',
-  color: '#97969B',
-  fontWeight: 'lighter',
-  paddingBottom: 5
-};
-
-const titleStyle = {
-  paddingBottom: 5,
-  whiteSpace: 'nowrap',
-  fontWeight: 500,
-  fontSsize: '2rem'
-};
-
-const dataStyle = {
-  fontSize: '1.2em',
-  fontWeight: 500
-};
-
-const Landing = ({ currentUser, tickets }) => {
+const Landing = ({ currentUser, allTickets, myTickets }) => {
   
   // Purchase button handler.
   const redirectToOrderPage = (ticket) => {
     Router.push('/tickets/[ticketId]', `/tickets/${ticket.id}`);
   }
 
-  const renderTickets = (tickets) => {
+  const renderAllTickets = (tickets) => {
     return (
-      <List hover>
-        {
-          tickets.map((ticket, index) => (
-            <List.Item style={{cursor: 'pointer'}} onClick={() => redirectToOrderPage(ticket)} key={ticket['title']} index={index}>
-            <FlexboxGrid>
-              {/*Icon*/}
-              <FlexboxGrid.Item colspan={3} style={styleCenter}>
-                <Icon
-                  icon='image'
-                  style={{
-                    color: 'darkgrey',
-                    fontSize: '1.5em'
-                  }}
-                />
-              </FlexboxGrid.Item>
-              {/*Ticket name, Owner name */}
-              <FlexboxGrid.Item
-                colspan={3}
-                style={{
-                  ...styleCenter,
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  overflow: 'hidden'
-                }}
-              >
-                <div style={titleStyle}>{ticket['title']}</div>
-                <div style={slimText}>
-                  <div>
-                    <Icon icon="user-circle-o" />
-                    {' ' + ticket['owner']}
-                  </div>
-                  <div>{ticket['createdAt']}</div>
-                </div>
-              </FlexboxGrid.Item>
-              {/* Price */}
-              <FlexboxGrid.Item colspan={3} style={styleCenter}>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={slimText}>Price in INR</div>
-                  <div style={dataStyle}>{ticket['price'].toLocaleString()}</div>
-                </div>
-              </FlexboxGrid.Item>
-              {/* Ticket description */}
-              <FlexboxGrid.Item colspan={10} style={styleCenter}>
-                <div>
-                  <div style={slimText}>Description</div>
-                  <div style={dataStyle}>{ticket['description']}</div>
-                </div>
-              </FlexboxGrid.Item>
-              <FlexboxGrid.Item
-                colspan={5}
-                style={{
-                  ...styleCenter
-                }}
-              >
-                <a href="#">View</a>
-              </FlexboxGrid.Item>
-            </FlexboxGrid>
-          </List.Item>
-          ))
-        }
+      <>
+        <h2>Tickets</h2>
+        <AllTickets tickets={tickets} handleClick={redirectToOrderPage} />
+      </>
+    )
+  };
 
-      </List>
+  const renderMyTickets = (tickets) => {
+
+    return (
+      <>
+        <h4>Tickets created by me</h4>
+        <MyTickets currentUser={currentUser} tickets={tickets} handleClick={redirectToOrderPage} />
+      </>
     )
   };
 
   return (
     <>
-      <h2>Tickets</h2>
-      <div>
-        {tickets && renderTickets(tickets)}
-      </div>
+      <FlexboxGrid className="tickets-home-container">
+        <FlexboxGrid.Item colspan={16}>{renderAllTickets(allTickets)}</FlexboxGrid.Item>
+        {
+          myTickets && (
+            <FlexboxGrid.Item className="my-tickets" colspan={8}>{renderMyTickets(myTickets)}</FlexboxGrid.Item>
+          ) 
+        }
+        
+      </FlexboxGrid>
     </>
   );
 };
 
 Landing.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/tickets');
+  const allTickets = await client.get('/api/tickets');
+
+  let myTickets;
+
+  if (currentUser) {
+    myTickets = await client.get('/api/tickets-currentuser');
+    console.log('My Tickets is', myTickets);
+  }
 
   // This will be passed as tickets.
-  return { tickets: data };
+  return { allTickets: allTickets.data, myTickets: myTickets ? myTickets.data : []};
 };
 
 export default Landing;
-/*
 
-
-
-*/

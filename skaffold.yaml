@@ -60,3 +60,5 @@ build:
             dest: .
           - src: '**/*.css'
             dest: .
+          - src: '**/*.scss'
+            dest: .

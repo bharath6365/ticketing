@@ -6,6 +6,7 @@ import 'rsuite/lib/styles/themes/dark/index.less';
 import Head from 'next/head';
 import '../style.css';
 
+
  //styles of nprogress
 
 import Header from '../components/Header';
@@ -21,7 +22,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <Container>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,300;0,400;1,400&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
       <Header currentUser={currentUser}/>
       <div className="component-wrapper">

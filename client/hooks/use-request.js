@@ -15,7 +15,7 @@ export default function ({url, method, onSuccess}) {
       }      
     } catch(err) {
       setErrors(
-        <Message type="error" description={
+        <Message className="message" type="error" description={
             <>
             <h4>Oops.</h4>
             <ul>
