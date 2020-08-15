@@ -10,6 +10,7 @@ import { createTicketRouter } from './routes/create-ticket';
 import { showTicketRouter } from './routes/show-ticket';
 import { showAllTicketsRouter } from './routes/show-all-tickets';
 import { updateTicketRouter } from './routes/update-ticket';
+import {showMyTicketsRouter} from './routes/show-my-tickets';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(showAllTicketsRouter);
 app.use(updateTicketRouter);
+app.use(showMyTicketsRouter);
 
 //Not found error
 app.all('*', () => {

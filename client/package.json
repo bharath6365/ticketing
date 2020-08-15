@@ -13,6 +13,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
     "axios": "^0.19.2",
     "less": "^3.11.3",
     "next": "^9.4.4",
@@ -21,6 +22,6 @@
     "react-countdown-circle-timer": "^2.2.2",
     "react-dom": "^16.13.1",
     "react-stripe-checkout": "^2.6.3",
-    "rsuite": "^4.7.5"
+    "rsuite": "4.7.5"
   }
 }

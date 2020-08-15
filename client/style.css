@@ -1,18 +1,18 @@
 * {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Neuton', serif;
 }
 
 body {
-  background: #111;
+  background: #161819;
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Playfair Display', serif;;
+  font-family: 'Roboto Slab', serif;
 }
 
 
 p {
-  color: #bbb;
+  color: #fff;
 }
 
 .timer-wrapper {
@@ -45,3 +45,56 @@ p {
 .component-wrapper {
   padding: 0 50px;
 }
+
+/* Message Component for showing information, errors. */
+.message {
+  max-width: 50vw;
+  margin: 20px 0;
+}
+
+/*
+  Ticket Home Container
+*/
+
+.tickets-home-container {
+  align-items: stretch;
+}
+
+.tickets-home-container:nth-child(2) {
+}
+
+.my-tickets {
+  padding: 0 20px;
+}
+
+
+.ticket-title {
+  font-size: 2rem;
+  padding-right: 15px;
+  color: #de75de;
+}
+/*
+  End Ticket Home Container
+*/
+
+/*
+  Ticket list
+*/
+.ticket-list {
+  margin: 40px 0;
+}
+
+.ticket-list li {
+	margin: 0;
+	padding: 36px 0 36px 84px;
+	list-style: none;
+	background-image: url("/images/ticket.svg");
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 40px;
+
+}
+/*
+  End Ticket list
+*/
+
