@@ -1,6 +1,6 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useState } from 'react';
-import {Message} from 'rsuite';
+import {Message, Button, Icon} from 'rsuite';
 import StripeCheckOut from 'react-stripe-checkout';
 import useRequest from '../../hooks/use-request';
 const orderShow = ({ order, currentUser }) => {
@@ -22,7 +22,7 @@ const orderShow = ({ order, currentUser }) => {
 
     return (
       <div className="timer">
-        <div className="text">Order expiring in </div>
+        <div className="text">Expiring </div>
         <div className="value">{remainingTime}</div>
         <div className="text">seconds</div>
       </div>
@@ -35,22 +35,23 @@ const orderShow = ({ order, currentUser }) => {
     return <Message showIcon type="error" title="Error" description="This order has already expired." />
   } else {
     return (
-    <div>
-      <h2>Purchasing Ticket - {order.ticket.title}</h2>
+    <div className="individual-ticket-page">
+      <h2 className="title">Purchasing Ticket - {order.ticket.title}</h2>
 
-      {!paymentSuccessMessage && (<div className="timer-wrapper">
+      {!paymentSuccessMessage && (
+      <div className="timer-wrapper">
         <CountdownCircleTimer
-          isPlaying
-          duration={expiresTime}
-          colors={[ [ '#004777', 0.33 ], [ '#F7B801', 0.33 ], [ '#A30000' ] ]}
-          onComplete={() => [ false, 1000 ]}
-        >
+            isPlaying
+            duration={expiresTime}
+            colors={[ [ '#19219a' ], [ '#abaa3e' ], [ '#e53b27' ] ]}
+            onComplete={() => [ false, 1000 ]}
+          >
           {renderTime}
           </CountdownCircleTimer>
         </div>
       )}
 
-      {!paymentSuccessMessage && (
+      {!expired && !paymentSuccessMessage && (
         <StripeCheckOut
           token={({id}) => doRequest({
             orderId: order.id,
@@ -60,7 +61,12 @@ const orderShow = ({ order, currentUser }) => {
           amount={order.ticket.price * 100}
           email={currentUser.email}
           currency="INR"
-        />
+        >
+        <Button color="cyan" appearance="ghost">
+          <Icon icon="credit-card-alt" />
+            Pay Now
+        </Button>
+        </StripeCheckOut>
       )}
 
       {paymentSuccessMessage && (
@@ -80,7 +86,9 @@ const orderShow = ({ order, currentUser }) => {
       )}
 
       {/* Display any errors */}
-      {errors}
+      <div style={{marginTop: '20px'}}>
+        {errors}
+      </div>
     </div>
   );
   }

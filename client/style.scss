@@ -1,0 +1,164 @@
+* {
+  font-family: 'Space Mono', monospace;
+}
+
+:root {
+  --color-b: #7de2d1;
+  --color-a: #fff;
+  --color-c: #161819;
+  --color-d: #fff;
+}
+
+body {
+  background: #000;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Roboto Slab', serif;
+  color: var(--color-a) !important;
+}
+
+i {
+  margin-right: 10px;
+}
+
+p {
+  color: var(--color-d);
+}
+
+.timer-wrapper {
+  display: flex;
+
+  > div {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .text {
+    color: white;
+  }
+}
+
+.value {
+  font-size: 40px;
+}
+
+.info {
+  max-width: 360px;
+  margin: 40px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.component-wrapper {
+  padding: 0 50px;
+}
+
+/* Message Component for showing information, errors. */
+.message {
+  max-width: 50vw;
+  margin: 20px 0;
+}
+
+/*
+  Ticket Home Container
+*/
+
+.tickets-home-container {
+  align-items: stretch;
+  min-height: 90vh;
+
+  .all-tickets {
+    border-right: 1px solid var(--color-b);
+  }
+}
+
+
+.my-tickets {
+  padding: 0 20px;
+}
+
+
+.ticket-title {
+  padding-right: 10px;
+}
+/*
+  End Ticket Home Container
+*/
+
+/*
+  Ticket list
+*/
+.ticket-list {
+  margin: 40px 0;
+  padding-left: 0;
+}
+
+.ticket-list li {
+	margin: 0;
+	padding: 15px 0 15px 50px;
+	list-style: none;
+	background-image: url("/images/ticket.svg");
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 30px;
+
+}
+/*
+  End Ticket list
+*/
+
+
+/*
+  Ticket Card
+*/
+.ticket-card {
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+  .rs-panel-heading {
+    font-size: 1.25rem;
+    color: var(--color-b);
+  }
+
+  .price {
+    font-size: 1.75rem;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 1px 2px 3px 8px rgba(0, 0, 0, 0.675);
+  }
+}
+
+/*
+  End Ticket Card
+*/
+
+
+/*
+  Individual ticket page
+*/
+.individual-ticket-page {
+  max-width: 80vw;
+
+  .title {
+    margin-bottom: 30px;
+  }
+
+  .price {
+    color: --var(--color-a);
+    font-size: 2rem;
+    margin: 10px 0;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}
