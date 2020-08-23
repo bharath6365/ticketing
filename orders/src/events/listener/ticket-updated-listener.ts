@@ -14,7 +14,6 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
     // Get the ticket. Version should be version -1.
     const ticket = await Ticket.findByEvent({id, version});
 
-    console.log('Ticket is', ticket);
 
     if (!ticket) {
       throw new Error('Ticket not found');

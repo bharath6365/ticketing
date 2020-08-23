@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css';
 import Router from 'next/router';
 import 'rsuite/lib/styles/themes/dark/index.less';
 import Head from 'next/head';
-import '../style.css';
+import '../style.scss';
 
 
  //styles of nprogress
@@ -23,6 +23,9 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     <Container>
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,300;0,400;1,400&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
+
       </Head>
       <Header currentUser={currentUser}/>
       <div className="component-wrapper">

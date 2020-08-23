@@ -25,7 +25,7 @@ const Landing = ({ currentUser, allTickets, myTickets }) => {
     return (
       <>
         <h4>Tickets created by me</h4>
-        <MyTickets currentUser={currentUser} tickets={tickets} handleClick={redirectToOrderPage} />
+        <MyTickets currentUser={currentUser} tickets={tickets} />
       </>
     )
   };
@@ -33,10 +33,10 @@ const Landing = ({ currentUser, allTickets, myTickets }) => {
   return (
     <>
       <FlexboxGrid className="tickets-home-container">
-        <FlexboxGrid.Item colspan={16}>{renderAllTickets(allTickets)}</FlexboxGrid.Item>
+        <FlexboxGrid.Item className="all-tickets" colspan={18}>{renderAllTickets(allTickets)}</FlexboxGrid.Item>
         {
           myTickets && (
-            <FlexboxGrid.Item className="my-tickets" colspan={8}>{renderMyTickets(myTickets)}</FlexboxGrid.Item>
+            <FlexboxGrid.Item className="my-tickets" colspan={6}>{renderMyTickets(myTickets)}</FlexboxGrid.Item>
           ) 
         }
         
@@ -52,7 +52,6 @@ Landing.getInitialProps = async (context, client, currentUser) => {
 
   if (currentUser) {
     myTickets = await client.get('/api/tickets-currentuser');
-    console.log('My Tickets is', myTickets);
   }
 
   // This will be passed as tickets.

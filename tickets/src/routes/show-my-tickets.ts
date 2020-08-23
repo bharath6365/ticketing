@@ -13,11 +13,9 @@ router.get('/api/tickets-currentuser', requireAuth,  async (req: Request, res: R
   // orderId: undefined means that these are tickets that are not sold yet.
 
   const tickets = await Ticket.find({
-    orderId: undefined,
     owner: req.currentUser!.email,
   });
 
-  console.log('Tickets is', tickets);
 
 
   res.send(tickets);

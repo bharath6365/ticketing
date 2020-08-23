@@ -25,6 +25,11 @@ router.post('/api/orders',requireAuth, [
     throw new NotFoundError();
   }
 
+  // If you are the owner of the ticket you cant buy your own ticket.
+  if (ticket.userId === req.currentUser!.id) {
+    throw new BadRequestError('You cant buy a ticket that you created');
+  }
+  
     const isReserved = await ticket.isReserved()
 
     // If existing order is found it's used by someone else.

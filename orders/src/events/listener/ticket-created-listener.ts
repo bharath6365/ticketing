@@ -8,11 +8,10 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   readonly subject = Subjects.TicketCreated;  
   queueGroupName = QUEUE_GROUP_NAME;
   async onMessage(data: TicketCreatedEvent['data'], msg: Message): Promise<void> {
-    console.log('Ticket Created Event received');
      
-    const {title, price, id} = data;
+    const {title, price, id, userId} = data;
     // Save the event to Mongo.
-    const ticket = Ticket.build({id,title, price});
+    const ticket = Ticket.build({id,title, price, userId});
     await ticket.save();
 
     // Acknowledge the Message
