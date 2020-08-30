@@ -32,7 +32,7 @@ router.put('/api/tickets/:id', requireAuth, [
   
   // Reserved ticket.
   if (ticket.orderId) {
-    throw new BadRequestError('Cannot edit a reserved ticket.');
+    throw new BadRequestError('The ticket is currently reserved.(In the process of being purchased) by another user. Please try after some time.');
   }
 
   // Check if user is the owner of the ticket.

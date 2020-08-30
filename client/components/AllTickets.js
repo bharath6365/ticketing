@@ -3,6 +3,8 @@ import { Icon, Panel, Row, Col } from 'rsuite';
 
 const Card = (props) => {
   const {ticket} = props;
+
+  if (!ticket.owner) return null;
   
   return (
     <Panel className="ticket-card" {...props} bordered header={ticket.title}>
