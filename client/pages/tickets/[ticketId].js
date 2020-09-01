@@ -10,13 +10,9 @@ const ticketShow = ({ ticket, currentUser }) => {
     }
   });
 
-  const isUserSame = currentUser && currentUser.email === ticket.owner;
+  const isOwner = currentUser && currentUser.email === ticket.owner;
 
-  const tooltip = (
-    <Tooltip>
-      You can't buy tickets that are created by you 🙆🏽‍♂️
-    </Tooltip>
-  );
+  const tooltip = <Tooltip>You can't buy tickets that are created by you 🙆🏽‍♂️</Tooltip>;
 
   const isLoggedIn = !!currentUser;
   return (
@@ -39,21 +35,33 @@ const ticketShow = ({ ticket, currentUser }) => {
         {ticket.owner}
       </p>
 
-      {isUserSame && (
+      {isOwner && (
         <Whisper placement="right" trigger="hover" speaker={tooltip}>
           <span>
             <Button disabled onClick={() => doRequest({ ticketId: ticket.id })} color="cyan" appearance="ghost">
-            <Icon icon="credit-card-alt" />
-            {currentUser ? "You own this ticket. Can't buy it" : "Login to purchase this ticket."}
-          </Button>
+              <Icon icon="credit-card-alt" />
+              {currentUser ? "You own this ticket. Can't buy it" : 'Login to purchase this ticket.'}
+            </Button>
           </span>
         </Whisper>
       )}
 
-      {!isUserSame && (
-        <Button disabled={!isLoggedIn} onClick={() => doRequest({ ticketId: ticket.id })} color="cyan" appearance="ghost">
+      {!isOwner && (
+        <Button
+          disabled={!isLoggedIn}
+          onClick={() => doRequest({ ticketId: ticket.id })}
+          color="cyan"
+          appearance="ghost"
+        >
           <Icon icon="credit-card-alt" />
-          {isLoggedIn ? "Purchase Ticket" : "Login to Purchase Ticket" }
+          {isLoggedIn ? 'Purchase Ticket' : 'Login to Purchase Ticket'}
+        </Button>
+      )}
+
+      {isOwner && (
+        <Button appearance="ghost" style={{marginLeft: '25px'}} onClick={() => Router.push(`/tickets/update/${ticket.id}`)} color="orange">
+          <Icon icon="edit" />
+          Edit Ticket
         </Button>
       )}
 

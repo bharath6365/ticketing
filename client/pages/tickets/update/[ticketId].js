@@ -9,13 +9,14 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  Col,
+  HelpBlock,
   Button,
   Schema,
-  Notification
+  Notification,
+  Col
 } from 'rsuite';
 
-import useRequest from '../../hooks/use-request';
+import useRequest from '../../../hooks/use-request';
 const { StringType, NumberType } = Schema.Types;
 // Validation for the form.
 const model = Schema.Model({
@@ -24,19 +25,19 @@ const model = Schema.Model({
   description: StringType().maxLength(50, 'Maximum of 50 characters is supported').isRequired('Description is required')
 });
 
-export default function newTicket() {
+export default function updateTicket({ticket}) {
   const formElement = useRef(null);
 
   const { doRequest, errors } = useRequest({
-    url: '/api/tickets',
-    method: 'post',
+    url: `/api/tickets/${ticket.id}`,
+    method: 'put',
     onSuccess: () => handleSuccess()
   });
 
   const handleSuccess = () => {
     Notification.success({
       title: 'Success',
-      description: 'Ticket has been created.'
+      description: 'Ticket has been updated.'
     });
 
     Router.push('/')
@@ -52,15 +53,16 @@ export default function newTicket() {
     doRequest({ title, price, description });
   };
 
+
   return (
     <Content>
       <FlexboxGrid justify="center">
         <FlexboxGrid.Item componentClass={Col} colspan={24} md={12}>
-          <Panel header={<h3>Create a Ticket</h3>} bordered>
-            <Form fluid model={model} onSubmit={handleSubmit} ref={formElement}>
+          <Panel header={<h3>Update Ticket</h3>} bordered>
+            <Form formDefaultValue={ticket} fluid model={model} onSubmit={handleSubmit} ref={formElement}>
               <FormGroup>
                 <ControlLabel>Title</ControlLabel>
-                <FormControl name="title" />
+                <FormControl name="title"/>
               </FormGroup>
 
               <FormGroup>
@@ -85,3 +87,12 @@ export default function newTicket() {
     </Content>
   );
 }
+
+updateTicket.getInitialProps = async (context, client) => {
+  // Gets the ticketId out of the URL.
+  const { ticketId } = context.query;
+
+  const { data } = await client.get(`/api/tickets/${ticketId}`);
+
+  return { ticket: data};
+};

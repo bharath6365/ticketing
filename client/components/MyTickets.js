@@ -9,6 +9,7 @@ export default function myTickets({tickets, handleClick, currentUser}) {
     <ul className="ticket-list">
         {
           tickets.map((ticket) => (
+            
             <li key={ticket.id}>
               <span className="ticket-title">
                 {ticket.title} - 
