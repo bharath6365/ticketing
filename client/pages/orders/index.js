@@ -19,31 +19,31 @@ const orderIndex = ({orders}) => {
           height={400}
           data={orders}
         >
-          <Column width={350} align="center" fixed>
+          <Column width={350} align="center" resizable>
             <HeaderCell>Id</HeaderCell>
             <Cell dataKey="id" />
           </Column>
 
-          <Column width={300} fixed>
+          <Column width={300} resizable>
             <HeaderCell>Ticket</HeaderCell>
             <Cell>
               {rowData => rowData.ticket.title}
             </Cell>
           </Column>
 
-          <Column width={100}>
+          <Column width={100} resizable>
             <HeaderCell>Price(INR)</HeaderCell>
             <Cell>
               {rowData => rowData.ticket.price}
             </Cell>
           </Column>
 
-          <Column width={100}>
+          <Column width={100} resizable>
             <HeaderCell>Status</HeaderCell>
             <Cell dataKey="status" />
           </Column>
 
-          <Column width={300}>
+          <Column width={300} resizable>
             <HeaderCell>Date</HeaderCell>
             <Cell>
               {rowData => new Date(rowData.createdAt).toLocaleDateString()}

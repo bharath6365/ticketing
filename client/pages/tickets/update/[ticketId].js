@@ -12,7 +12,8 @@ import {
   HelpBlock,
   Button,
   Schema,
-  Notification
+  Notification,
+  Col
 } from 'rsuite';
 
 import useRequest from '../../../hooks/use-request';
@@ -56,7 +57,7 @@ export default function updateTicket({ticket}) {
   return (
     <Content>
       <FlexboxGrid justify="center">
-        <FlexboxGrid.Item colspan={12}>
+        <FlexboxGrid.Item componentClass={Col} colspan={24} md={12}>
           <Panel header={<h3>Update Ticket</h3>} bordered>
             <Form formDefaultValue={ticket} fluid model={model} onSubmit={handleSubmit} ref={formElement}>
               <FormGroup>

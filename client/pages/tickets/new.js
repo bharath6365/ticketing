@@ -9,7 +9,7 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock,
+  Col,
   Button,
   Schema,
   Notification
@@ -55,7 +55,7 @@ export default function newTicket() {
   return (
     <Content>
       <FlexboxGrid justify="center">
-        <FlexboxGrid.Item colspan={12}>
+        <FlexboxGrid.Item componentClass={Col} colspan={24} md={12}>
           <Panel header={<h3>Create a Ticket</h3>} bordered>
             <Form fluid model={model} onSubmit={handleSubmit} ref={formElement}>
               <FormGroup>

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 import Router from 'next/router';
-import { Container, Content, FlexboxGrid, Panel, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Schema, Message } from 'rsuite';
+import { Container, Content, FlexboxGrid, Panel, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Schema, Grid, Col } from 'rsuite';
 
 import useRequest from '../../hooks/use-request';
 const { StringType, NumberType } = Schema.Types;
@@ -32,7 +32,7 @@ export default function signin() {
   return (
       <Content>
         <FlexboxGrid justify="center">
-          <FlexboxGrid.Item colspan={12}>
+          <FlexboxGrid.Item componentClass={Col} colspan={24} md={12}>
             <Panel header={<h3>Login</h3>} bordered>
               <Form fluid model={model} onSubmit={handleSubmit} ref={formElement}>
                 <FormGroup>

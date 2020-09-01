@@ -44,7 +44,7 @@ export default function AllTickets({ tickets, handleClick }) {
   return (
     <>
       {tickets.map((ticket, index) => (
-        <Col md={8} sm={12} onClick={() => handleClick(ticket)}>
+        <Col md={8} sm={24} onClick={() => handleClick(ticket)}>
           <Card ticket={ticket} />
         </Col>
       ))}

@@ -76,6 +76,10 @@ p {
 
   .all-tickets {
     border-right: 1px solid var(--color-b);
+
+    h2 {
+      padding-left: 15px;
+    }
   }
 }
 
@@ -121,10 +125,19 @@ p {
 .ticket-card {
   margin: 10px;
   cursor: pointer;
-  transition: transform 0.3s ease-out;
+  transition: all 0.3s ease-out;
   .rs-panel-heading {
     font-size: 1.25rem;
     color: var(--color-b);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
   }
 
   .price {
@@ -133,7 +146,6 @@ p {
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 1px 2px 3px 8px rgba(0, 0, 0, 0.675);
   }
 }
 
@@ -160,5 +172,50 @@ p {
 
   button {
     margin-top: 20px;
+  }
+}
+
+/*
+  Tablet styles
+*/ 
+@media (max-width: 1140px) {
+  .component-wrapper {
+    padding: 0 10px;
+  }
+
+  .tickets-home-container {
+    flex-wrap: wrap;
+
+    .all-tickets {
+      flex-basis: 100%;
+      border-right: none;
+    }
+
+    .my-tickets {
+      width: 100%;
+      margin-top: 40px;
+    }
+
+    .ticket-list {
+      margin: 10px 0;
+    }
+  }
+}
+
+/*
+  Mobile styles
+*/
+
+@media(max-width: 500px ) {
+  .all-tickets {
+    > div {
+      margin: 10px 0;
+    }
+  }
+
+  .individual-ticket-page {
+    button {
+      margin-left: 0 !important;
+    }
   }
 }
