@@ -3,8 +3,6 @@ import { Icon, Panel, Row, Col } from 'rsuite';
 
 const Card = (props) => {
   const {ticket} = props;
-
-  if (!ticket.owner) return null;
   
   return (
     <Panel className="ticket-card" {...props} bordered header={ticket.title}>
@@ -43,11 +41,14 @@ export default function AllTickets({ tickets, handleClick }) {
 
   return (
     <>
-      {tickets.map((ticket, index) => (
-        <Col md={8} sm={24} onClick={() => handleClick(ticket)}>
-          <Card ticket={ticket} />
-        </Col>
-      ))}
+      {tickets.map((ticket, index) => {
+        if (!ticket.owner) return null;
+        return (
+          <Col key={index} md={8} sm={24} onClick={() => handleClick(ticket)}>
+            <Card ticket={ticket} />
+          </Col>
+        )
+      })}
     </>
   );
 }
